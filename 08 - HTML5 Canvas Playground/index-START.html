@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Draw Anything!</h1>
+    <canvas id="draw" width="800" height="800"></canvas>
+    <script>
+        /* eslint-disable */
+        const canvas = document.querySelector('#draw');
+        // Get Context
+        const ctx = canvas.getContext('2d');
+        // ctx.globalCompositeOperation = 'multiply'; //Blend Modes
+        // Set base settings - height, width, stroke and line
+        canvas.height = window.innerWidth;
+        canvas.width = window.innerWidth;
+
+        ctx.strokeStyle = '#BADA55';
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 5;
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let hue = 0;
+        let direction = true;
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            // Draw Line
+            ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+
+            [lastX, lastY] = [e.offsetX, e.offsetY]
+            hue++;
+
+            // Reset hue
+            if (hue > 360)
+                hue = 0;
+
+            // Logic of when to flip direction for size increae decrease
+            if (ctx.lineWidth >= 100 || ctx.lineWidth <= 2) {
+                direction = !direction;
+                console.log(`direction flipped to ${direction}`);
+            }
+
+            // Increase or decrease line size
+            if (direction) {
+                ctx.lineWidth++;
+            } else {
+                ctx.lineWidth--;
+            }
+
+            //console.log(e);
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+    </script>
+</body>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h1 {
+        margin: auto;
+        text-align: center;
+    }
+
+    #draw {
+        margin: 1em;
+        max-width: 100%;
+        max-height: 100%;
+        outline: black 3px solid;
+    }
+</style>
+
+
+</html>
