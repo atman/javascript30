@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Check Console</p>
+    <p id="cat-fact"></p>
+    <p id="time"></p>
+</body>
+<script>
+    /* eslint-disable */
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+        const p = document.querySelector('p');
+        p.style.color = '#BADA55';
+        p.style.fontSize = '50px';
+    }
+
+    //Logs
+    console.log(`Normal Log`);
+    console.info(`Information Log`);
+    console.warn('Warning Log');
+    console.error(`Error Log`);
+
+    console.log('%c Stylized log', 'font-size:50px');
+
+    console.assert(1 === 2, 'That does not work!');
+
+    console.clear();
+
+    //Viewing DOM elemments
+    const p = document.querySelector('p');
+    console.log(p); //Only main HTML element
+    console.dir(p); //Gives all attributes within the tag
+
+    //Grouping elements
+    dogs.forEach(dog => {
+        console.group(`${dog.name}`);
+        console.log(`This is ${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old`);
+        console.groupEnd(`${dog.name}`);
+    });
+
+    //Count
+    console.count("statement 1");
+    console.count("statement 1");
+
+    //Timing
+    console.time('fetch');
+    const t0 = performance.now();
+
+    const catFact = document.querySelector('#cat-fact');
+    const time = document.querySelector('#time');
+
+    fetch('https://catfact.ninja/fact')
+        .then(data => data.json())
+        .then(data => {
+            console.timeEnd('fetch');
+            const t1 = performance.now();
+            console.log(data.fact);
+            catFact.innerHTML = data.fact;
+            time.innerHTML = `${t1 - t0} ms`;
+        });
+
+    console.table(dogs);
+</script>
+
+</html>
