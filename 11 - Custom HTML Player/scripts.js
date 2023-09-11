@@ -15,10 +15,6 @@ function togglePlay() {
     video[method]();
 }
 
-function toggleFullscreen() {
-    console.log(this);
-}
-
 function updateButton() {
     const icon = this.paused ? '▶️' : '⏸️';
     // eslint-disable-next-line no-console

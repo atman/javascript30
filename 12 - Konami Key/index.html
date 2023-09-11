@@ -1,0 +1,58 @@
+<!-- eslint-disable no-console -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Konmai Code</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+</head>
+
+<body>
+    <p>Enter the cheat code for Flying cards in GTA 3</p>
+    <h1 class="pressedKey"></h1>
+    <h1 class="pressedMessage"></h1>
+
+
+</body>
+<script>
+    const pressedKey = document.querySelector('.pressedKey');
+    const pressed = [];
+    const secret = 'chittychittybangbang';
+
+    function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    window.addEventListener('keyup', (e) => {
+        pressed.push(e.key);
+        pressed.splice(-secret.length - 1, pressed.length - secret.length);
+        pressedKey.textContent = pressed.join('');
+        if (pressed.join('').includes(secret)) {
+            // RUN CONFETTI
+            // eslint-disable-next-line no-undef
+            confetti({
+                angle: randomInRange(55, 125),
+                spread: randomInRange(50, 70),
+                particleCount: randomInRange(50, 100),
+                origin: { y: 0.6 },
+            });
+        }
+    });
+</script>
+
+<style>
+    * {
+        text-align: center;
+    }
+
+    body {
+        padding: 2rem;
+        font-family: "helvetica neue", sans-serif;
+        font-size: 1rem;
+    }
+</style>
+
+</html>
