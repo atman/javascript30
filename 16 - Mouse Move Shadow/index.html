@@ -1,0 +1,64 @@
+<!-- eslint-disable no-console -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Shadow</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+
+<body>
+    <div class="hero">
+        <h1 contenteditable>🔥WOAH!</h1>
+    </div>
+    <style>
+        html {
+            color: black;
+            font-family: sans-serif;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+
+        h1 {
+            text-shadow: 8px 8px 5px rgba(0, 0, 0, 1);
+            font-size: 100px;
+        }
+    </style>
+
+    <script>
+        const hero = document.querySelector('.hero');
+        const text = hero.querySelector('h1');
+
+        const { elWidth, elHeight, elTop, elLeft } = {
+            elWidth: text.offsetWidth,
+            elHeight: text.offsetHeight,
+            elTop: text.offsetTop,
+            elLeft: text.offsetLeft,
+        };
+
+        const centerX = elLeft + elWidth / 2;
+        const centerY = elTop + elHeight / 2;
+
+        function moveShadow(e) {
+            const shadowX = (centerX - e.clientX) / 50;
+            const shadowY = (centerY - e.clientY) / 50;
+
+            text.style.textShadow = `${shadowX}px ${shadowY}px 5px rgba(${shadowX * 20}, ${shadowY * 20}, 25, 1)`;
+        }
+
+        hero.addEventListener('mousemove', moveShadow);
+    </script>
+</body>
+
+</html>
