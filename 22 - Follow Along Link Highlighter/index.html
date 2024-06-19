@@ -1,0 +1,76 @@
+<!-- eslint-disable no-console -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>👀👀👀Follow Along Nav</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+
+<body>
+
+    <nav>
+        <ul class="menu">
+            <li><a href="">Home</a></li>
+            <li><a href="">Order Status</a></li>
+            <li><a href="">Tweets</a></li>
+            <li><a href="">Read Our History</a></li>
+            <li><a href="">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="wrapper">
+        <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit. Est <a href="">explicabo</a> unde
+            natus
+            necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
+        <p>Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque praesentium laborum pariatur earum <a
+                href="">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
+        <p>Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime <a href="">corrupti</a> possimus <a
+                href="">veritatis</a> ipsum fugit recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.</p>
+        <p>Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni odit <a href="">totam</a> ut
+            consequatur
+            eveniet sunt quam provident sapiente dicta neque quod.</p>
+        <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime
+            <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!
+        </p>
+    </div>
+
+    <script>
+        const links = document.querySelectorAll('a');
+        const highlight = document.createElement('span');
+        highlight.classList.add('highlight');
+        document.body.append(highlight);
+        let previousLink;
+
+        function highlightLink() {
+            // const start = performance.now();
+            if (previousLink) previousLink.style.color = `darkblue`;
+            const linkCoords = this.getBoundingClientRect();
+
+            const coords = {
+                width: linkCoords.width,
+                height: linkCoords.height,
+                left: linkCoords.left + window.scrollX,
+                top: linkCoords.top + window.scrollY,
+            };
+            this.style.color = 'white';
+            highlight.style.width = `${coords.width + 16}px`;
+            highlight.style.height = `${coords.height + 16}px`;
+            highlight.style.transform = `translate(${coords.left - 8}px, ${coords.top - 8}px)`;
+            // highlight.style.top = `${coords.top - 8}px`;
+            // highlight.style.left = `${coords.left - 8}px`;
+            // this.style.color = 'white';
+
+            // console.log(coords);
+            // const end = performance.now();
+            // console.log(`Execution time: ${end - start} ms`);
+            previousLink = this;
+        }
+
+        links.forEach((a) => a.addEventListener('mouseenter', highlightLink));
+    </script>
+</body>
+
+</html>
