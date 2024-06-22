@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Understanding JavaScript's Capture</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+
+<body class="bod">
+
+    <div class="one">
+        <div class="two">
+            <div class="three">
+
+            </div>
+        </div>
+    </div>
+    <div class="center">
+        <button id="myButton" class="">Click Me Just Once</button>
+    </div>
+    <style>
+        html {
+            box-sizing: border-box;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            border: 3px solid green;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        div {
+            width: 100%;
+            padding: 100px;
+        }
+
+        .one {
+            background: thistle;
+        }
+
+        .two {
+            background: mistyrose;
+        }
+
+        .three {
+            background: coral;
+        }
+
+        #myButton {
+            background-color: #000000;
+            /* Green */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            /* Add some rounded corners */
+            cursor: pointer;
+            width: 20vw;
+            /* Change the mouse cursor when hovering over the button */
+        }
+
+        #myButton:hover {
+            background-color: #464646;
+            /* Darker green on hover */
+        }
+    </style>
+    <script>
+        const divs = document.querySelectorAll('div');
+        const clickButton = document.querySelector('button');
+
+        function logClick(e) {
+            console.log(this.classList.value);
+            e.stopPropagation(); // stops bubbling
+        }
+
+        divs.forEach((div) =>
+            div.addEventListener('click', logClick, {
+                capture: false, // making it true makes the events bubble top-down rather than bottom - up
+            }),
+        );
+
+        clickButton.addEventListener(
+            'click',
+            () => {
+                console.log('Clicked Once');
+            },
+            { once: true },
+        );
+    </script>
+</body>
+
+</html>
