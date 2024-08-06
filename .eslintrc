@@ -13,7 +13,7 @@
         "endOfLine": "auto",
         "tabWidth": 4,
         "useTabs": false,
-        "printWidth": 140
+        "printWidth": 96
       }
     ]
   },
